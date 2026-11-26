@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!-- The Windows 10 version gives access to Windows' own PDF page renderer, used for page thumbnails. -->
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>PdfManager</RootNamespace>
+    <AssemblyName>PdfManager</AssemblyName>
+    <StartupObject>PdfManager.Program</StartupObject>
+    <MyType>Empty</MyType>
+    <OptionStrict>On</OptionStrict>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionInfer>On</OptionInfer>
+    <Product>PDF Manager</Product>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="tools\**" />
+    <!-- The logo, drawn by Assets\make-logo.ps1. -->
+    <EmbeddedResource Include="Assets\app.ico" LogicalName="PdfManager.app.ico" />
+    <EmbeddedResource Include="Assets\logo.png" LogicalName="PdfManager.logo.png" />
+    <!-- Pictures for the Help window, made by Assets\help\make-help-pictures.ps1. -->
+    <EmbeddedResource Include="Assets\help\*.png" LogicalName="PdfManager.help.%(Filename).png" />
+    <None Remove="Assets\help\*.ps1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- QPDF ships beside the program, in a "qpdf" folder; when published as one file it stays a real folder. -->
+    <None Include="tools\qpdf\**\*" Link="qpdf\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="PdfManager.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- So Visual Studio opens these in its form designer. -->
+    <Compile Update="MainForm.vb" SubType="Form" />
+    <Compile Update="MainForm.Designer.vb" DependentUpon="MainForm.vb" />
+    <Compile Update="PasswordDialog.vb" SubType="Form" />
+    <Compile Update="PasswordDialog.Designer.vb" DependentUpon="PasswordDialog.vb" />
+    <Compile Update="HelpForm.vb" SubType="Form" />
+    <Compile Update="HelpForm.Designer.vb" DependentUpon="HelpForm.vb" />
+    <Compile Update="PageViewForm.vb" SubType="Form" />
+    <Compile Update="PageViewForm.Designer.vb" DependentUpon="PageViewForm.vb" />
+    <Compile Update="PageGrid.vb" SubType="Component" />
+    <Compile Update="ProtectDialog.vb" SubType="Form" />
+    <Compile Update="ProtectDialog.Designer.vb" DependentUpon="ProtectDialog.vb" />
+    <Compile Update="LayersDialog.vb" SubType="Form" />
+    <Compile Update="LayersDialog.Designer.vb" DependentUpon="LayersDialog.vb" />
+  </ItemGroup>
+
+</Project>
